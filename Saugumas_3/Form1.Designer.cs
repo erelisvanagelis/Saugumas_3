@@ -33,7 +33,6 @@ namespace Saugumas_3
             this.yTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.readButton = new System.Windows.Forms.Button();
-            this.generateNButton = new System.Windows.Forms.Button();
             this.calcNButton = new System.Windows.Forms.Button();
             this.nTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,7 +55,6 @@ namespace Saugumas_3
             this.groupBox1.Controls.Add(this.yTextBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.readButton);
-            this.groupBox1.Controls.Add(this.generateNButton);
             this.groupBox1.Controls.Add(this.calcNButton);
             this.groupBox1.Controls.Add(this.nTextBox);
             this.groupBox1.Controls.Add(this.label3);
@@ -89,30 +87,23 @@ namespace Saugumas_3
             // 
             // readButton
             // 
-            this.readButton.Location = new System.Drawing.Point(676, 119);
+            this.readButton.Location = new System.Drawing.Point(528, 119);
             this.readButton.Name = "readButton";
-            this.readButton.Size = new System.Drawing.Size(311, 27);
+            this.readButton.Size = new System.Drawing.Size(459, 27);
             this.readButton.TabIndex = 8;
             this.readButton.Text = "Read a file";
             this.readButton.UseVisualStyleBackColor = true;
-            // 
-            // generateNButton
-            // 
-            this.generateNButton.Location = new System.Drawing.Point(355, 119);
-            this.generateNButton.Name = "generateNButton";
-            this.generateNButton.Size = new System.Drawing.Size(315, 27);
-            this.generateNButton.TabIndex = 7;
-            this.generateNButton.Text = "Generate n";
-            this.generateNButton.UseVisualStyleBackColor = true;
+            this.readButton.Click += new System.EventHandler(this.readButton_Click);
             // 
             // calcNButton
             // 
             this.calcNButton.Location = new System.Drawing.Point(34, 119);
             this.calcNButton.Name = "calcNButton";
-            this.calcNButton.Size = new System.Drawing.Size(315, 27);
+            this.calcNButton.Size = new System.Drawing.Size(459, 27);
             this.calcNButton.TabIndex = 6;
             this.calcNButton.Text = "Calcute n";
             this.calcNButton.UseVisualStyleBackColor = true;
+            this.calcNButton.Click += new System.EventHandler(this.calcNButton_Click);
             // 
             // nTextBox
             // 
@@ -244,7 +235,6 @@ namespace Saugumas_3
         private System.Windows.Forms.TextBox yTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button readButton;
-        private System.Windows.Forms.Button generateNButton;
         private System.Windows.Forms.Button calcNButton;
         private System.Windows.Forms.TextBox nTextBox;
         private System.Windows.Forms.Label label3;
