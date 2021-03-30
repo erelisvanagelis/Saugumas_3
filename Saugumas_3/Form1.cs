@@ -17,28 +17,6 @@ namespace Saugumas_3
             InitializeComponent();
         }
 
-        private void calcNButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int q = Convert.ToInt32(qTextBox.Text);
-                if (!RSATool.IsItPrimary(q))
-                    throw new Exception("q: is not a primary number");
-
-                int p = Convert.ToInt32(pTextBox.Text);
-                if (!RSATool.IsItPrimary(p))
-                    throw new Exception("p: is not a primary number");
-
-                nTextBox.Text = (q * p).ToString();
-            }
-            catch(Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
-
-
-        }
-
         private void readButton_Click(object sender, EventArgs e)
         {
             try
@@ -49,13 +27,29 @@ namespace Saugumas_3
                     return;
 
                 string[] data = RSATool.ReadFile(opd.FileName);
-                if(data == null)
+                if(data == null || data.Length < 3)
                 {
                     throw new Exception("Invalid file structure");
                 }
 
                 nTextBox.Text = data[0];
-                yTextBox.Text = data[2];
+                for(int i = 2; i < data.Length; i++)
+                {
+                    yTextBox.Text += data[i];
+                }
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void encryptButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                xTextBox.Text = RSATool.EncryptSequence(qTextBox.Text, pTextBox.Text, yTextBox.Text);
             }
             catch (Exception exc)
             {
