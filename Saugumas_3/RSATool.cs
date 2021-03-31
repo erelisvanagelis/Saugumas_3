@@ -11,7 +11,7 @@ namespace Saugumas_3
     class RSATool
     {
 
-        public static bool IsItPrimary(int number)
+        public static bool IsItPrimary(BigInteger number)
         {
             if (number <= 1)
             {
@@ -19,9 +19,9 @@ namespace Saugumas_3
             }
             else
             {
-                for (int a = 2; a <= number / 2; a++)
+                for (BigInteger i = 2; i <= number / 2; i++)
                 {
-                    if (number % a == 0)
+                    if (number % i == 0)
                     {
                         return false;
                     }
@@ -41,31 +41,35 @@ namespace Saugumas_3
 
         public static string EncryptSequence(string Q, string P, string y)
         {
-            int[] values = CheckEncryptionVariables(Q, P);
-            int q = values[0];
-            int p = values[1];
+            BigInteger[] values = CheckEncryptionVariables(Q, P);
+            BigInteger q = values[0];
+            BigInteger p = values[1];
 
-            int n = q * p;
-            int t = (q - 1) * (p - 1);
+            BigInteger n = q * p;
+            BigInteger t = (q - 1) * (p - 1);
 
-            int e = SetE(t);
+            BigInteger e = SetE(t);
             if (e == 0)
                 throw new Exception("failed to find e");
+
 
             string x = n + ";\n" + e + ";\n";
             foreach(char c in y)
             {
+                int temp = Encrypt(c, n, e);
                 x += Encrypt(c, n, e);
+                x += ';';
             }
+            x = x.Remove(x.Length - 1, 1);
 
             return x;
         }
 
-        public static int[] CheckEncryptionVariables(string q, string p)
+        public static BigInteger[] CheckEncryptionVariables(string q, string p)
         {
-            int[] values = new int[2];
-            values[0] = Convert.ToInt32(q);
-            values[1] = Convert.ToInt32(p);
+            BigInteger[] values = new BigInteger[2];
+            values[0] = BigInteger.Parse(q);
+            values[1] = BigInteger.Parse(p);
 
             if (!IsItPrimary(values[0]))
                 throw new Exception("q: is not a primary number");
@@ -76,10 +80,10 @@ namespace Saugumas_3
             return values;
         }
 
-        public static int SetE(int t)
+        public static BigInteger SetE(BigInteger t)
         {
-            int e = 0;
-            for(int i = 2; i < t; i++)
+            BigInteger e = 0;
+            for(BigInteger i = 2; i < t; i++)
             {
                 if(Eucledian(t, i))
                 {
@@ -94,9 +98,9 @@ namespace Saugumas_3
             return e;
         }
 
-        public static bool Eucledian(int t, int i)
+        public static bool Eucledian(BigInteger t, BigInteger i)
         {
-            int temp = t % i;
+            BigInteger temp = t % i;
             if (temp == 1)
                 return true;
 
@@ -106,16 +110,79 @@ namespace Saugumas_3
             return Eucledian(i, temp);
         }
 
-        public static char Encrypt(char x, int n, int e)
+        public static int Encrypt(char x, BigInteger n, BigInteger e)
         {
             int charInAscii = (int)x;
-            BigInteger powered = BigInteger.Pow(charInAscii, e);
+            BigInteger powered = BigInteger.Pow(charInAscii, (int)e);
             powered %= n;
             Console.WriteLine($"en: x={x}, charInAscii={charInAscii}, n={n}, e={e}, powered={powered}");
-            powered %= 128;
-            if (powered < 32)
-                powered += 32;
+            return (int)powered;
+        }
+
+        public static BigInteger[] GetPrimaries(BigInteger n)
+        {
+            BigInteger[] bigs = new BigInteger[2];
+            for(BigInteger i = 2; i < n / 2; i++)
+            {
+                if(IsItPrimary(i))
+                {
+                    BigInteger another = n / i;
+
+                    if(IsItPrimary(another) && i * another == n)
+                    {
+                        bigs[0] = i;
+                        bigs[1] = another;
+                        Console.WriteLine(i + " " + another);
+                        break;
+                    }
+                }
+            }
+
+            return bigs;
+        }
+
+        public static string DecryptSequence(string N, string y)
+        {
+            BigInteger n = BigInteger.Parse(N);
+            BigInteger[] primaries = GetPrimaries(n);
+            BigInteger t = (primaries[0] - 1) * (primaries[1] - 1);
+            BigInteger e = SetE(t);
+            Console.WriteLine("e=" + e.ToString());
+            BigInteger d;
+
+            BigInteger i = 2;
+            while (true)
+            {
+                BigInteger temp = i * e;
+                if (temp % t == 1)
+                {
+                    d = i;
+                    break;
+                }
+                i++;
+            }
+
+            string x = "";
+            string[] ySplit = y.Split(';');
+            foreach(string s in ySplit)
+            {
+                x += Decrypt(BigInteger.Parse(s), n, d);
+                Console.WriteLine(x);
+            }
+            return x;
+        }
+
+        public static char Decrypt(BigInteger x, BigInteger n, BigInteger d)
+        {
+            BigInteger powered = BigInteger.Pow(x, (int)d);
+            powered %= n;
+            Console.WriteLine($"de: x={x}, n={(int)n}, d={(int)d}, powered={(int)powered}");
             return (char)powered;
+        }
+
+        public static void WriteToAFile(string path, string contents)
+        {
+            File.WriteAllText(path, contents);
         }
     }
 }

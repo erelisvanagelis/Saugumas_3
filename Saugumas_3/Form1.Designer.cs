@@ -32,7 +32,7 @@ namespace Saugumas_3
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.yTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.readButton = new System.Windows.Forms.Button();
+            this.readEncryptedButton = new System.Windows.Forms.Button();
             this.nTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.qTextBox = new System.Windows.Forms.TextBox();
@@ -45,15 +45,17 @@ namespace Saugumas_3
             this.encryptButton = new System.Windows.Forms.Button();
             this.xTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.readRegularButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.readRegularButton);
             this.groupBox1.Controls.Add(this.yTextBox);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.readButton);
+            this.groupBox1.Controls.Add(this.readEncryptedButton);
             this.groupBox1.Controls.Add(this.nTextBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.qTextBox);
@@ -83,15 +85,15 @@ namespace Saugumas_3
             this.label4.TabIndex = 9;
             this.label4.Text = "y:";
             // 
-            // readButton
+            // readEncryptedButton
             // 
-            this.readButton.Location = new System.Drawing.Point(676, 119);
-            this.readButton.Name = "readButton";
-            this.readButton.Size = new System.Drawing.Size(311, 27);
-            this.readButton.TabIndex = 8;
-            this.readButton.Text = "Read a file";
-            this.readButton.UseVisualStyleBackColor = true;
-            this.readButton.Click += new System.EventHandler(this.readButton_Click);
+            this.readEncryptedButton.Location = new System.Drawing.Point(676, 119);
+            this.readEncryptedButton.Name = "readEncryptedButton";
+            this.readEncryptedButton.Size = new System.Drawing.Size(311, 27);
+            this.readEncryptedButton.TabIndex = 8;
+            this.readEncryptedButton.Text = "Read encrypted file";
+            this.readEncryptedButton.UseVisualStyleBackColor = true;
+            this.readEncryptedButton.Click += new System.EventHandler(this.readButton_Click);
             // 
             // nTextBox
             // 
@@ -163,6 +165,7 @@ namespace Saugumas_3
             this.writeButton.TabIndex = 11;
             this.writeButton.Text = "Write to a file";
             this.writeButton.UseVisualStyleBackColor = true;
+            this.writeButton.Click += new System.EventHandler(this.writeButton_Click);
             // 
             // decryptButton
             // 
@@ -172,6 +175,7 @@ namespace Saugumas_3
             this.decryptButton.TabIndex = 13;
             this.decryptButton.Text = "Decrypt y";
             this.decryptButton.UseVisualStyleBackColor = true;
+            this.decryptButton.Click += new System.EventHandler(this.decryptButton_Click);
             // 
             // encryptButton
             // 
@@ -199,6 +203,16 @@ namespace Saugumas_3
             this.label5.TabIndex = 11;
             this.label5.Text = "x:";
             // 
+            // readRegularButton
+            // 
+            this.readRegularButton.Location = new System.Drawing.Point(359, 119);
+            this.readRegularButton.Name = "readRegularButton";
+            this.readRegularButton.Size = new System.Drawing.Size(311, 27);
+            this.readRegularButton.TabIndex = 11;
+            this.readRegularButton.Text = "Read a file";
+            this.readRegularButton.UseVisualStyleBackColor = true;
+            this.readRegularButton.Click += new System.EventHandler(this.readRegularButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -223,7 +237,7 @@ namespace Saugumas_3
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox yTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button readButton;
+        private System.Windows.Forms.Button readEncryptedButton;
         private System.Windows.Forms.TextBox nTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox qTextBox;
@@ -236,6 +250,7 @@ namespace Saugumas_3
         private System.Windows.Forms.Button encryptButton;
         private System.Windows.Forms.TextBox xTextBox;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button readRegularButton;
     }
 }
 
